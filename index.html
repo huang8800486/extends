@@ -1,0 +1,83 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <meta name="keywords" content=""> 
+    <meta name="Description" content="">
+    <link href="css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="css/reset.css" rel="stylesheet" type="text/css" />
+    <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="js/decimal.min.js" type="text/javascript"></script>
+</head>
+<style>
+    input{width:400px;height:45px;line-height:45px;background:#fff;color:#000;border:1px solid #eaeaea;}
+</style>
+<body>
+    <input type="text" id="number"/>
+</body>
+</html>
+<script type="text/javascript">
+/*
+* JQuery开发插件的两个方法
+* 1.jQuery.extend(object);为扩展jQuery类本身.为类添加新的方法。 
+* 2.jQuery.fn.extend(object);给jQuery对象添加方法。
+*/
+
+/*
+* 为jQuery类添加类方法，可以理解为添加静态方法。
+* jQuery.extend(object)
+*/
+!(function ($) {
+    jQuery.extend({
+        // 版本
+        "version": "0",
+
+        // 字母+数字，字母+特殊字符，数字+特殊字符
+        "verifyPwd": function (str) {
+            var patrn = /^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*.><]+$)[a-zA-Z\d!@#$%^&*.><]+$/;
+            if (!patrn.exec(str)) return false
+            return true;
+        }
+    });
+})(window.jQuery);
+// 调用
+console.log($.version)
+console.log($.verifyPwd("121213ijj"))
+
+
+/*
+* jQuery.fn.extend(object);给jQuery对象添加方法。
+*/
+// jQuery.fn = jQuery.prototype。prototype（原型）
+/*jQuery.fn = jQuery.prototype = {
+    init: function(selector, context) {
+        //内容
+    }
+}*/
+// 比如要开发一个插件，做一个特殊的编辑框，当它被点击时，便alert 当前编辑框里的内容。可以这么做
+!(function ($) {
+    jQuery.extend({
+        // 版本
+        "version": "0",
+
+        // 字母+数字，字母+特殊字符，数字+特殊字符
+        "verifyPwd": function (str) {
+            var patrn = /^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*.><]+$)[a-zA-Z\d!@#$%^&*.><]+$/;
+            if (!patrn.exec(str)) return false
+            return true;
+        }
+    });
+
+    jQuery.fn.extend({
+        alertWhileClick: function() {
+            $(this).click(function() {
+                alert($(this).val());
+            });
+        }
+    });
+})(window.jQuery);
+
+//$("#number")是jQuery的实例，调用这个扩展方法
+$("#number").alertWhileClick();
+</script>
